@@ -4,24 +4,61 @@ const User = models.User;
 
 const getAll = (req, res, next) => {
     User.findAll().then((users)=>{
-        res.send(users);
+        helpers.successResponse(res, users);
+    }).catch((err)=>{
+        helpers.failedResponse(res, null, err.errors[0].message);
     });
 }
 
 const createOne = (req, res, next) => {
     helpers.init({req, res, next});
-    User.create({
-        firstName: helpers.params.firstName,
-        lastName: helpers.params.lastName,
-        email: helpers.params.email
+    User.create(helpers.params).then((user)=>{
+        User.findByPk(user.id).then((user)=>{
+            helpers.successResponse(res, user);
+        })
+    }).catch((err)=>{
+        helpers.failedResponse(res, null, err.errors[0].message);
+    });
+}
+
+const getOne = (req, res, next) => {
+    User.findByPk(req.params.userId).then((user)=>{
+        helpers.successResponse(res, user);
+    }).catch((err)=>{
+        helpers.failedResponse(res, null, err.errors[0].message);
+    });
+}
+
+const updateOne = (req, res, next) => {
+    User.update(req.params, {
+        where:{
+            id: req.userId
+        }
     }).then((user)=>{
         User.findByPk(user.id).then((user)=>{
-        res.send(user);
+            helpers.successResponse(res, user);
         })
-    })
+    }).catch((err)=>{
+        helpers.failedResponse(res, null, err.errors[0].message);
+    });
+}
+
+const deleteOne = (req, res, next) => {
+    User.delete(req.params, {
+        where:{
+            id: req.userId
+        }
+    }).then((user)=>{
+        helpers.successResponse(res, user);
+    }).catch((err)=>{
+        helpers.failedResponse(res, null, err.errors[0].message);
+    });
 }
 
 module.exports = {
     getAll,
     createOne,
+    getOne,
+    updateOne,
+    deleteOne,
 }
