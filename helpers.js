@@ -1,6 +1,6 @@
 const params = {};
 const init = ({req, res, next}) => {
-    Object.entries(req.query).forEach(q => {
+    if(req) Object.entries(req.query).forEach(q => {
         key = q[0];
         params[key] = req.params[key] ? req.params[key] : req.query[key];
     });
