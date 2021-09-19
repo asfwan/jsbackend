@@ -12,7 +12,7 @@ const getAll = (req, res, next) => {
     });
 }
 
-/* Retrieve all users */
+/* Create one user */
 const createOne = (req, res, next) => {
     helpers.init({req, res, next});
     User.create(helpers.params).then((user)=>{
@@ -25,7 +25,7 @@ const createOne = (req, res, next) => {
     });
 }
 
-/* Retrieve all users */
+/* Retrieve one user */
 const getOne = (req, res, next) => {
     User.findByPk(req.params.userId).then((user)=>{
         helpers.successResponse(res, user);
