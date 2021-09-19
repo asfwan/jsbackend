@@ -1,4 +1,5 @@
 const params = {};
+
 const init = ({req, res, next}) => {
     if(req) Object.entries(req.query).forEach(q => {
         key = q[0];
@@ -6,7 +7,27 @@ const init = ({req, res, next}) => {
     });
 }
 
+const successResponse = (res, data, status, responseCode) => {
+    return res
+    .status(responseCode ? responseCode : 200)
+    .send({
+        success: true,
+        data,
+        status,
+    });
+}
+
+const failedResponse = (res, data, status, responseCode) => {
+    return res.send({
+        success: false,
+        data,
+        status,
+    });
+}
+
 module.exports = {
     init,
-    params
+    params,
+    successResponse,
+    failedResponse,
 }
