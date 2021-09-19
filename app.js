@@ -19,15 +19,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(function(req, res, next) {
-  // Object.entries(req.query).forEach(q => {
-  //   key = q[0];
-  //   req.params[key] = req.params[key] ? req.params[key] : req.query[key];
-  // });
-  req.firstName = "changed";
-  next();
-});
-
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
