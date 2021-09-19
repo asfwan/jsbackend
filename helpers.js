@@ -18,7 +18,9 @@ const successResponse = (res, data, status, responseCode) => {
 }
 
 const failedResponse = (res, data, status, responseCode) => {
-    return res.send({
+    return res
+    .status(responseCode ? responseCode : 400)
+    .send({
         success: false,
         data,
         status,
