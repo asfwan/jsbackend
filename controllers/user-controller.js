@@ -35,28 +35,30 @@ const getOne = (req, res, next) => {
     });
 }
 
+/* Update one user */
 const updateOne = (req, res, next) => {
-    User.update(req.params, {
-        where:{
-            id: req.params.userId
-        }
-    }).then((user)=>{
-        User.findByPk(user.id).then((user)=>{
+    User.findByPk(req.params.userId).then((user)=>{
+        user.update(req.params).then((user)=>{
             helpers.successResponse(res, user);
-        })
+        }).catch((err)=>{
+            msg = err && err.errors && err.errors[0] ? err.errors[0].message : err.errors;
+            helpers.failedResponse(res, null, msg);
+        });
     }).catch((err)=>{
         msg = err && err.errors && err.errors[0] ? err.errors[0].message : err.errors;
         helpers.failedResponse(res, null, msg);
     });
 }
 
+/* Delete one user */
 const deleteOne = (req, res, next) => {
-    User.destroy(req.params, {
-        where:{
-            id: req.params.userId
-        }
-    }).then((user)=>{
-        helpers.successResponse(res, user);
+    User.findByPk(req.params.userId).then((user)=>{
+        user.destroy().then((user)=>{
+            helpers.successResponse(res, user);
+        }).catch((err)=>{
+            msg = err && err.errors && err.errors[0] ? err.errors[0].message : err.errors;
+            helpers.failedResponse(res, null, msg);
+        });
     }).catch((err)=>{
         msg = err && err.errors && err.errors[0] ? err.errors[0].message : err.errors;
         helpers.failedResponse(res, null, msg);
