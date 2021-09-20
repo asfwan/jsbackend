@@ -11,8 +11,7 @@ class ResourceController{
         model.findAll().then((resources)=>{
             helpers.successResponse(res, resources);
         }).catch((err)=>{
-            let msg = err && err.errors && err.errors[0] ? err.errors[0].message : err.errors;
-            helpers.failedResponse(res, null, msg);
+            helpers.failedResponse(res, null, err.message);
         });
     }
 
@@ -24,8 +23,7 @@ class ResourceController{
                 helpers.successResponse(res, resource);
             })
         }).catch((err)=>{
-            let msg = err && err.errors && err.errors[0] ? err.errors[0].message : err.errors;
-            helpers.failedResponse(res, null, msg);
+            helpers.failedResponse(res, null, err.message);
         });
     }
 
@@ -34,8 +32,7 @@ class ResourceController{
         model.findByPk(req.params.id).then((resource)=>{
             helpers.successResponse(res, resource);
         }).catch((err)=>{
-            let msg = err && err.errors && err.errors[0] ? err.errors[0].message : err.errors;
-            helpers.failedResponse(res, null, msg);
+            helpers.failedResponse(res, null, err.message);
         });
     }
 
@@ -45,12 +42,10 @@ class ResourceController{
             resource.update(req.params).then((resource)=>{
                 helpers.successResponse(res, resource);
             }).catch((err)=>{
-                let msg = err && err.errors && err.errors[0] ? err.errors[0].message : err.errors;
-                helpers.failedResponse(res, null, msg);
+                helpers.failedResponse(res, null, err.message);
             });
         }).catch((err)=>{
-            let msg = err && err.errors && err.errors[0] ? err.errors[0].message : err.errors;
-            helpers.failedResponse(res, null, msg);
+            helpers.failedResponse(res, null, err.message);
         });
     }
 
@@ -60,12 +55,10 @@ class ResourceController{
             resource.destroy().then((resource)=>{
                 helpers.successResponse(res, resource);
             }).catch((err)=>{
-                let msg = err && err.errors && err.errors[0] ? err.errors[0].message : err.errors;
-                helpers.failedResponse(res, null, msg);
+                helpers.failedResponse(res, null, err.message);
             });
         }).catch((err)=>{
-            let msg = err && err.errors && err.errors[0] ? err.errors[0].message : err.errors;
-            helpers.failedResponse(res, null, msg);
+            helpers.failedResponse(res, null, err.message);
         });
     }
 
