@@ -63,7 +63,7 @@ class ResourceController{
     }
 
     static init (model) {
-        return new ResourceController(model);
+        return new this(model);
     }
 
     constructor (_model) {
