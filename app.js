@@ -5,8 +5,20 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var apiRouter = require('./routes/api');
+const AdminBro = require('admin-bro');
+const AdminBroExpress = require('@admin-bro/express');
+const AdminBroSequelize = require('@admin-bro/sequelize');
+AdminBro.registerAdapter(AdminBroSequelize);
+const db = require('./models');
 
 var app = express();
+
+const adminBro = new AdminBro({
+  databases: [db],
+  rootPath: '/admin',
+});
+const adminBroRouter = AdminBroExpress.buildRouter(adminBro);
+app.use(adminBro.options.rootPath, adminBroRouter);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
