@@ -77,8 +77,21 @@ class ResourceController{
         model = _model;
     }
 
-    crudFunctions () {
-        return this;
+    apiResources (router) {
+        /* GET - retrieve resources listing. */
+        router.get('/', this.getAll);
+
+        /* POST - create resource. */
+        router.post('/', this.createOne);
+
+        /* GET - get resource by id. */
+        router.get('/:id', this.getOne);
+
+        /* PUT - update resource by id. */
+        router.put('/:id', this.updateOne);
+
+        /* DELETE - delete resource by id. */
+        router.delete('/:id', this.deleteOne);
     }
 }
 
