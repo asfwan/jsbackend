@@ -8,12 +8,12 @@ router.get('/', UserController.getAll);
 router.post('/', UserController.createOne);
 
 /* GET - get user by id. */
-router.get('/:userId', UserController.getOne);
+router.get('/:id', UserController.getOne);
 
 /* PUT - update user. */
-router.put('/:userId', UserController.updateOne);
+router.put('/:id', UserController.updateOne);
 
 /* DELETE - delete user. */
-router.delete('/:userId', UserController.deleteOne);
+router.delete('/:id', UserController.deleteOne);
 
 module.exports = router;
