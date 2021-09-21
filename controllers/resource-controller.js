@@ -4,6 +4,7 @@ const helpers = require('../helpers');
 // const models = require('../models/index');
 // const User = models.User;
 let model;
+let resource = '';
 
 class ResourceController{
     /* Retrieve all resources */
@@ -62,29 +63,30 @@ class ResourceController{
         });
     }
 
-    static init (model) {
-        return new this(model);
+    static init (params) {
+        return new this(params);
     }
 
-    constructor (_model) {
-        model = _model;
+    constructor ({modelObject, resourceName}) {
+        model = modelObject;
+        resource = resourceName;
     }
 
     apiResources (router) {
         /* GET - retrieve resources listing. */
-        router.get('/', this.getAll);
+        router.get('/'+resource, this.getAll);
 
         /* POST - create resource. */
-        router.post('/', this.createOne);
+        router.post('/'+resource, this.createOne);
 
         /* GET - get resource by id. */
-        router.get('/:id', this.getOne);
+        router.get('/'+resource+'/:id', this.getOne);
 
         /* PUT - update resource by id. */
-        router.put('/:id', this.updateOne);
+        router.put('/'+resource+'/:id', this.updateOne);
 
         /* DELETE - delete resource by id. */
-        router.delete('/:id', this.deleteOne);
+        router.delete('/'+resource+'/:id', this.deleteOne);
     }
 }
 
