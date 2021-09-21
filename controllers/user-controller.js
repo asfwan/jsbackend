@@ -6,7 +6,12 @@ const ResourceController = require('./resource-controller');
 class UserController extends ResourceController{
     routes (router) {
         this.apiResources(router);
+    constructor () {
+        super({
+            modelObject: User,
+            resourceName: 'users'
+        });
     }
 }
 
-module.exports = UserController.init(User);
+module.exports = UserController.init();
